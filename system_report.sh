@@ -25,3 +25,15 @@ elif [ "$disk_usage" -lt 90 ]; then
 else
     echo "Disk Status: CRITICAL"
 fi
+
+available=$(free -m | awk '/Mem:/ {print $7}')
+echo
+echo "Available Memory: ${available} MB"
+
+if [ "$available" -gt 2000 ]; then
+    echo "Memory Status: OK"
+elif [ "$available" -gt 1000 ]; then
+    echo "Memory Status: WARNING"
+else
+    echo "Memory Status: CRITICAL"
+fi
